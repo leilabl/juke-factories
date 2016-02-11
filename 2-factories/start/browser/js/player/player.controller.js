@@ -24,14 +24,26 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   // $scope.$on('pause', pause);
   // $scope.$on('play', play);
 
+  $scope.playing = PlayerFactory.isPlaying;
   $scope.play = PlayerFactory.start;
   $scope.pause = PlayerFactory.pause;
   $scope.resume = PlayerFactory.resume;
   $scope.next = PlayerFactory.next;
   $scope.previous = PlayerFactory.previous;
-  $scope.getProgress = PlayerFactory.getProgress;
+  $scope.currentSong = PlayerFactory.getCurrentSong
+  $scope.getProgress = function () {
+    return 100 * PlayerFactory.getProgress();
+  }
 
-  //$digest();
+    // main toggle
+  $scope.toggle = function (song) {
+    // console.log('song',song , 'current song', $scope.currentSong())
+    if ($scope.playing() && song === $scope.currentSong()) {
+        $scope.pause();
+    } else $scope.play(song);
+  };
+
+  // $scope.$digest();
 
 
   // functionality

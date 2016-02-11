@@ -1,6 +1,6 @@
 'use strict';
 
-juke.factory('PlayerFactory', function (){
+juke.factory('PlayerFactory', function ($rootScope){
   // non-UI logic in here
   var currentSong;
   var playing = false;
@@ -14,11 +14,11 @@ juke.factory('PlayerFactory', function (){
 
   audio.addEventListener('timeupdate', function () {
 		    progress = audio.currentTime / audio.duration; 
-		    //$digest(); // no Angular-aware code is doing this for us here
+		    $rootScope.$digest(); // no Angular-aware code is doing this for us here
 		  }); 
 
 
-  return {
+  var playerFactory = {
 
   	start: function (song, songList){
     // stop existing audio (e.g. other song) in any case
@@ -54,21 +54,19 @@ juke.factory('PlayerFactory', function (){
 	},
 
 	getCurrentSong: function () {
-		// console.log(currentSong)
 		if (currentSong) return currentSong;
 		return null;
 	},
-	// },
-
 
 	next: function () {
+		
 		var nextSongIdx = songArr.indexOf(currentSong) + 1;
 		var nextSong = songArr[nextSongIdx];
 
 		if(songArr.indexOf(currentSong) == songArr.length-1) {
 			nextSong = songArr[0];
 		}
-		this.start(nextSong);
+		playerFactory.start(nextSong, songArr);
 	},
 
 	previous: function () {
@@ -78,19 +76,19 @@ juke.factory('PlayerFactory', function (){
 		if(songArr.indexOf(currentSong) == 0) {
 			prevSong = songArr[songArr.length-1];
 		}
-		this.start(prevSong);
+		playerFactory.start(prevSong, songArr);
 
 	},
 
 	getProgress: function() { 
 		if(!playing) return 0; 
-		console.log(progress)
 		return progress;
 			// audio.addEventListener('ended', this.next());		    
 	}
 
   	
   };
+  return playerFactory;
 });
 
 

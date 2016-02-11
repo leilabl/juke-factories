@@ -4,7 +4,7 @@ juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFact
 
   // load our initial data
   $http.get('/api/albums/')
-  .then(res => $http.get('/api/albums/' + res.data[1]._id)) // temp: use first
+  .then(res => $http.get('/api/albums/' + res.data[4]._id)) // temp: use first
   .then(res => res.data)
   .then(album => {
     album.imageUrl = '/api/albums/' + album._id + '.image';
@@ -21,21 +21,22 @@ juke.controller('AlbumCtrl', function($scope, $http, $rootScope, $log, StatsFact
 
   .catch($log.error); // $log service can be turned on and off; also, pre-bound
 
-  // main toggle
-  $scope.toggle = function (song) {
-    if ($scope.isPlaying() && song === $scope.getCurrentSong()) {
-        $scope.pause();
-    } else $scope.play();
-  };
 
-  $scope.isPlaying = PlayerFactory.isPlaying;
+  $scope.playing = PlayerFactory.isPlaying;
   $scope.play = PlayerFactory.start;
   $scope.pause = PlayerFactory.pause;
   $scope.resume = PlayerFactory.resume;
   $scope.next = PlayerFactory.next;
   $scope.previous = PlayerFactory.previous;
-  $scope.getCurrentSong = PlayerFactory.getCurrentSong
+  $scope.currentSong = PlayerFactory.getCurrentSong
 
+  // main toggle
+  $scope.toggle = function (song) {
+    // console.log('song',song , 'current song', $scope.currentSong())
+    if ($scope.playing() && song === $scope.currentSong()) {
+        $scope.pause();
+    } else $scope.play(song, $scope.album.songs);
+  };
 
 
   // incoming events (from Player, toggle, or skip)
