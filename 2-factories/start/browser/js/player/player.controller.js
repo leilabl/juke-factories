@@ -21,11 +21,17 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   // };
 
   // incoming events (from Album or toggle)
-  $scope.$on('pause', pause);
-  $scope.$on('play', play);
+  // $scope.$on('pause', pause);
+  // $scope.$on('play', play);
 
   $scope.play = PlayerFactory.start;
   $scope.pause = PlayerFactory.pause;
+  $scope.resume = PlayerFactory.resume;
+  $scope.next = PlayerFactory.next;
+  $scope.previous = PlayerFactory.previous;
+  $scope.getProgress = PlayerFactory.getProgress;
+
+  //$digest();
 
 
   // functionality
@@ -47,7 +53,7 @@ juke.controller('PlayerCtrl', function ($scope, $rootScope, PlayerFactory) {
   // }
 
   // outgoing events (to Album… or potentially other characters)
-  $scope.next = function () { pause(); $rootScope.$broadcast('next'); };
-  $scope.prev = function () { pause(); $rootScope.$broadcast('prev'); };
+  // $scope.next = function () { pause(); $rootScope.$broadcast('next'); };
+  // $scope.prev = function () { pause(); $rootScope.$broadcast('prev'); };
 
 });

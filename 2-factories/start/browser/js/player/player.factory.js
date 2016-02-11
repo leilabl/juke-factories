@@ -45,10 +45,10 @@ juke.factory('PlayerFactory', function (){
 
 	isPlaying: function () {
 		if (!playing) {
-			this.start(currentSong);
+			//this.start(currentSong);
 			return false;
 		} else {
-			this.pause();
+			// this.pause();
 			return true;
 		}
 	},
