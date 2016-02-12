@@ -7,6 +7,7 @@
     <link href="/style.css" rel="stylesheet" />
     <script src="/angular/angular.js" defer></script>
     <script src="/js/module.js" defer></script>
+    <script src="/js/sidebar/sidebar.controller.js" defer></script>
     <script src="/js/album/album.controller.js" defer></script>
     <script src="/js/album/albums.controller.js" defer></script>
     <script src="/js/player/player.controller.js" defer></script>
@@ -16,39 +17,28 @@
     <div id="main" class="container-fluid">
 
       <div class="col-xs-2">
-        <sidebar>
+        <sidebar ng-controller="SidebarCtrl">
           <img src="juke.svg" class="logo">
           <section>
             <h4 class="playlist-item active">
-              <a href="#">ALBUMS</a>
+              <a ng-click="viewAlbums()" href="#">ALBUMS</a>
             </h4>
           </section>
         </sidebar>
       </div>
 
       <div class="col-xs-10">
-        <div ng-controller="AlbumsCtrl">
+        <div ng-show="showMe" ng-controller="AlbumsCtrl">
           <h3>Albums</h3>
           <div class="row">
-            <div class="col-xs-4">
+            <div ng-repeat="album in albums" class="col-xs-4">
               <a class="thumbnail" href="#">
-                <img ng-src="http://placeholdit.imgix.net/~text?txtsize=33&txt=ALBUMoneIMAGE&w=300&h=300">
+                <img ng-src="{{ album.imageUrl }}">
                 <div class="caption">
                   <h5>
-                    <span>ALBUM ONE NAME HERE</span>
+                    <span>{{ album.name }}</span>
                   </h5>
-                  <small>NUMBER OF SONGS HERE songs</small>
-                </div>
-              </a>
-            </div>
-            <div class="col-xs-4">
-              <a class="thumbnail" href="#">
-                <img src="http://placeholdit.imgix.net/~text?txtsize=33&txt=ALBUMtwoIMAGE&w=300&h=300">
-                <div class="caption">
-                  <h5>
-                    <span>ALBUM TWO NAME HERE</span>
-                  </h5>
-                  <small>NUMBER OF SONGS HERE songs</small>
+                  <small>{{ album.numSongs }}</small>
                 </div>
               </a>
             </div>

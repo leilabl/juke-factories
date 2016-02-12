@@ -1,3 +1,11 @@
+//WORKSHOP TODO
+
+//sidebar
+//create album factory -> http request 
+
+
+
+
 'use strict';
 
 juke.factory('PlayerFactory', function ($rootScope){
@@ -13,9 +21,13 @@ juke.factory('PlayerFactory', function ($rootScope){
 
 
   audio.addEventListener('timeupdate', function () {
-		    progress = audio.currentTime / audio.duration; 
-		    $rootScope.$digest(); // no Angular-aware code is doing this for us here
-		  }); 
+	// audio.addEventListener('ended', this.next());		    
+    progress = audio.currentTime / audio.duration; 
+    ////Alternatives to $rootScope.digest() below:////
+    // $timeout(); //angular method that 
+    $rootScope.evalAsync(); //schedules a digest unless there is one already happening
+    // $rootScope.$digest(); // no Angular-aware code is doing this for us here
+  }); 
 
 
   var playerFactory = {
@@ -83,7 +95,6 @@ juke.factory('PlayerFactory', function ($rootScope){
 	getProgress: function() { 
 		if(!playing) return 0; 
 		return progress;
-			// audio.addEventListener('ended', this.next());		    
 	}
 
   	
