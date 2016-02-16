@@ -1,0 +1,9 @@
+<div>
+	<h2>Purchase some quality Murray photos...</h2>
+	<hr>
+	<p>
+		<span>{{ nameOfUser }}'s cart has {{ loadCart().length }} {{ adjective }} items costing ${{ total() }}</span>
+		<button ng-click="purchaseCart()">checkout</button>
+	</p>
+	<hr>
+</div>

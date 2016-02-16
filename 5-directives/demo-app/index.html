@@ -1,0 +1,19 @@
+<html>
+	<head>
+		<script src="/node_modules/angular/angular.js"></script>
+		<script src="/client.js"></script>
+	</head>
+	<body ng-app="murray">
+		<div ng-controller="TopCtrl">
+			<h3>THIS IS A COOL SITE</h3>
+			<div>You are {{ name }}</div>
+			<p>here-> {{ somethingElse }} <-there</p>
+			<control-area name-of-user="name"></control-area>
+		</div>
+		<div ng-controller="ProductsCtrl">
+			<div ng-repeat="picture in products">
+				<pic data="picture"></pic>
+			</div>
+		</div>
+	</body>
+</html>
