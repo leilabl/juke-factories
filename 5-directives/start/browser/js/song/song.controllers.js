@@ -23,15 +23,42 @@ juke.controller('SongChooseCtrl', function ($scope, SongFactory) {
 });
 
 
-juke.directive('songList', function(){
+juke.directive('songList', function(PlayerFactory){
   return {
     restrict: 'E',
     templateUrl: '/js/song/songlist.template.html',
     scope: {
-      songs: '='
+      songs: '=' //isolate scope - can be used anywhere - outside world needs to pass it something
+    },
+    link: function (scope) {
+      angular.extend(scope, PlayerFactory);
+      scope.toggle = function (song) {
+        if (song !== PlayerFactory.getCurrentSong()) {
+          PlayerFactory.start(song, scope.songs);
+        } else if ( PlayerFactory.isPlaying() ) {
+          PlayerFactory.pause();
+        } else {
+          PlayerFactory.resume();
+        }
+      }
+      scope.isPlaying = function (song) {
+        return PlayerFactory.isPlaying() && PlayerFactory.getCurrentSong() === song;
+      };
     }
   }
 })
 
-// pass in functionality for play buttons (pass in controller function to directive?)
-// link function that gives this directive's scope the functionality necessary to play songs
+juke.directive('doubleClick', function () {
+  return {
+    restrict: 'A',
+    scope: {
+      doubleClick: '&' //from the outer scope it captures that expression - start(song)
+      //doubleclick doesn't care what expression is being passed - the expression depends on the parent scope
+    },
+    link: function (scope, element) {
+      element.on('dblclick', function () {
+        scope.doubleClick()
+    })
+    }
+  }
+})
