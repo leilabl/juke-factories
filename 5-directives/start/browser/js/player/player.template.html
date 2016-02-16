@@ -11,7 +11,8 @@
     </button>
   </div>
   <div class="bar">
-    <div class="progress">
+    <div class="curr-song">Now Playing: <strong>{{getCurrentSong().name}}</strong></div>
+    <div scrubber-click class="progress">
       <div class="progress-bar" ng-style="{width: getPercent() + '%'}"></div>
     </div>
   </div>

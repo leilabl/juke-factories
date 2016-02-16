@@ -64,6 +64,10 @@ juke.factory('PlayerFactory', function ($rootScope) {
     return progress;
   };
 
+  player.setProgress = function(fraction){
+    var sec = audio.duration * fraction;
+    audio.currentTime = sec;
+  }
   // audio event listening
 
   audio.addEventListener('ended', function () {

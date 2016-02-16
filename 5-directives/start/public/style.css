@@ -41,9 +41,12 @@ footer {
   border-top: 1px solid #222;
   border-bottom: 1px solid #222;
   padding: 8px; }
+footer .curr-song{
+  font-size: 12px;
+}
   footer .bar {
     overflow: hidden;
-    padding: 9px; }
+    padding: 0 9px; }
   footer .progress-bar {
     transition: none !important; }
 
