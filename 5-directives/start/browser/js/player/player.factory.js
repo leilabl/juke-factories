@@ -68,9 +68,10 @@ juke.factory('PlayerFactory', function ($rootScope) {
     var sec = audio.duration * fraction;
     audio.currentTime = sec;
   }
-  // audio event listening
 
+  // audio event listening
   audio.addEventListener('ended', function () {
+    console.log(currentSong, currentList);
     player.next();
     $rootScope.$evalAsync();
   });

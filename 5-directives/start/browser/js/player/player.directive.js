@@ -26,8 +26,6 @@ juke.directive('scrubberClick', function(PlayerFactory){
 				var newProgress = (event.clientX - element[0].offsetLeft)/element[0].clientWidth;
 				PlayerFactory.setProgress(newProgress);
 			});
-
-
 		}
 	}
 })
